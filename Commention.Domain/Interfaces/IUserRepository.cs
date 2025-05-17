@@ -6,7 +6,7 @@ namespace Commention.Domain.Interfaces
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task<User> GetUserByIdAsync(long userId);
-        Task AddUserAsync(User user);
+        Task CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(long userId);
         Task<string> Login(string userName, string password);

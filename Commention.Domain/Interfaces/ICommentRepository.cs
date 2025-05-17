@@ -8,7 +8,7 @@ namespace Commention.Domain.Interfaces
         Task<IEnumerable<Comment>> GetCommentsByUserIdAsync(long userId);
         Task<Comment> GetCommentByIdAsync(long id);
         Task ConfirmComment(long id);
-        Task AddCommentAsync(Comment comment);
+        Task CreateCommentAsync(Comment comment);
         Task UpdateCommentAsync(Comment comment);
         Task DeleteCommentAsync(long id);
     }

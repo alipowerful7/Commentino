@@ -4,9 +4,9 @@ namespace Commention.Domain.Interfaces
 {
     public interface IPendUserRegisterRepository
     {
-        Task ConfirmEmailAsync(long id, string confirmCode);
         Task<PendUserRegister> GetPendUserRegisterByIdAsync(long id);
-        Task<long> AddPendUserRegisterAsync(PendUserRegister pendUserRegister);
+        Task ConfirmEmailAsync(long id, string confirmCode);
+        Task<long> CreatePendUserRegisterAsync(PendUserRegister pendUserRegister);
         Task DeletePendUserRegisterAsync(long id);
     }
 }
