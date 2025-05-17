@@ -9,5 +9,6 @@ namespace Commention.Domain.Interfaces
         Task AddUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(long userId);
+        Task<string> Login(string userName, string password);
     }
 }
