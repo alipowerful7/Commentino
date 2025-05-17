@@ -31,7 +31,7 @@ namespace Commention.Application.Commands.PendUserRegister.ConfirmEmail
                     UserRole = UserRole.User,
                     Password = pendUserRegister.Password
                 };
-                await _userRepository.AddUserAsync(model);
+                await _userRepository.CreateUserAsync(model);
             }
             else
             {
