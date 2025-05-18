@@ -1,5 +1,4 @@
 ﻿using Commention.Domain.Interfaces;
-using Commention.Domain.Models.Entities;
 using Commention.Domain.Models.Enums;
 using MediatR;
 
@@ -21,7 +20,7 @@ namespace Commention.Application.Commands.PendUserRegister.ConfirmEmail
             var pendUserRegister = await _pendUserRegisterRepository.GetPendUserRegisterByIdAsync(request.Id);
             if (pendUserRegister.ConfirmCode == request.ConfirmCode && pendUserRegister.ExpireDate <= DateTime.Now)
             {
-                var model = new User
+                var model = new Domain.Models.Entities.User
                 {
                     FirstName = pendUserRegister.FirstName,
                     LastName = pendUserRegister.LastName,
