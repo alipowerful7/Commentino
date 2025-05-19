@@ -1,6 +1,6 @@
-﻿namespace Commention.Application.Queries.User.GetAllUsers
+﻿namespace Commention.Application.Queries.User.GetUserById
 {
-    public class GetAllUsersDto
+    public class GetUserByIdDto
     {
         public long Id { get; set; }
         public string? FirstName { get; set; }
