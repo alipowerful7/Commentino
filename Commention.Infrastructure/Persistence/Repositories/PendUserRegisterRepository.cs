@@ -20,16 +20,16 @@ namespace Commention.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeletePendUserRegisterAsync(long id)
+        public async Task DeletePendUserRegisterAsync(long pendUserRegisterId)
         {
-            var model = await GetPendUserRegisterByIdAsync(id);
+            var model = await GetPendUserRegisterByIdAsync(pendUserRegisterId);
             _context.PendUserRegisters.Remove(model);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<PendUserRegister> GetPendUserRegisterByIdAsync(long id)
+        public async Task<PendUserRegister> GetPendUserRegisterByIdAsync(long pendUserRegisterId)
         {
-            var model = await _context.PendUserRegisters.FirstOrDefaultAsync(p => p.Id == id);
+            var model = await _context.PendUserRegisters.FirstOrDefaultAsync(p => p.Id == pendUserRegisterId);
             if (model == null)
             {
                 throw new Exception("کاربر پیدا نشد.");
