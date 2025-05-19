@@ -18,6 +18,7 @@ namespace Commention.Infrastructure.Persistence.Repositories
         {
             await _context.PendUserRegisters.AddAsync(pendUserRegister);
             await _context.SaveChangesAsync();
+            return pendUserRegister.Id;
         }
 
         public async Task DeletePendUserRegisterAsync(long id)
