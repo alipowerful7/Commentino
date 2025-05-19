@@ -1,4 +1,5 @@
-﻿using Commention.Domain.Interfaces;
+﻿using Commention.Application.Interfaces;
+using Commention.Domain.Interfaces;
 using MediatR;
 
 namespace Commention.Application.Commands.PendUserRegister.CreatePendUserRegister
@@ -6,10 +7,12 @@ namespace Commention.Application.Commands.PendUserRegister.CreatePendUserRegiste
     public class CreatePendUserRegisterCommandHandler : IRequestHandler<CreatePendUserRegisterCommand, long>
     {
         private readonly IPendUserRegisterRepository _pendUserRegisterRepository;
+        private readonly IEmailService _emailService;
 
-        public CreatePendUserRegisterCommandHandler(IPendUserRegisterRepository pendUserRegisterRepository)
+        public CreatePendUserRegisterCommandHandler(IPendUserRegisterRepository pendUserRegisterRepository, IEmailService emailService)
         {
             _pendUserRegisterRepository = pendUserRegisterRepository;
+            _emailService = emailService;
         }
 
         public async Task<long> Handle(CreatePendUserRegisterCommand request, CancellationToken cancellationToken)
@@ -26,6 +29,7 @@ namespace Commention.Application.Commands.PendUserRegister.CreatePendUserRegiste
                 ConfirmCode = new Random().Next(100000, 999999).ToString()
             };
             await _pendUserRegisterRepository.CreatePendUserRegisterAsync(model);
+            await _emailService.SendConfirmationEmailAsync(model.Email!, model.ConfirmCode);
             return model.Id;
         }
     }
