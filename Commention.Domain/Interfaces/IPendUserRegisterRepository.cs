@@ -6,7 +6,7 @@ namespace Commention.Domain.Interfaces
     {
         Task<PendUserRegister> GetPendUserRegisterByIdAsync(long id);
         Task<bool> IsPendUserRegisterExistsAsync(string userName, string email);
-        Task<long> CreatePendUserRegisterAsync(PendUserRegister pendUserRegister);
+        Task CreatePendUserRegisterAsync(PendUserRegister pendUserRegister);
         Task DeletePendUserRegisterAsync(long id);
     }
 }

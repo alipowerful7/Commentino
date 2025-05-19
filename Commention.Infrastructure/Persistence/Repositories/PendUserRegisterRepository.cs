@@ -14,11 +14,10 @@ namespace Commention.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<long> CreatePendUserRegisterAsync(PendUserRegister pendUserRegister)
+        public async Task CreatePendUserRegisterAsync(PendUserRegister pendUserRegister)
         {
             await _context.PendUserRegisters.AddAsync(pendUserRegister);
             await _context.SaveChangesAsync();
-            return pendUserRegister.Id;
         }
 
         public async Task DeletePendUserRegisterAsync(long id)
