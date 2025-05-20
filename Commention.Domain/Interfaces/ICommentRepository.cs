@@ -6,7 +6,7 @@ namespace Commention.Domain.Interfaces
     {
         Task<IEnumerable<Comment>> GetAllCommentsAsync();
         Task<IEnumerable<Comment>> GetCommentsByUserIdAsync(long userId);
-        Task<Comment> GetCommentByIdAsync(long idcommentId);
+        Task<Comment> GetCommentByIdAsync(long commentId);
         Task<bool> IsCommentConfirm(long commentId);
         Task ConfirmComment(long commentId);
         Task CreateCommentAsync(Comment comment);
