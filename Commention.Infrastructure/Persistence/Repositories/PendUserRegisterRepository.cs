@@ -41,5 +41,11 @@ namespace Commention.Infrastructure.Persistence.Repositories
         {
             return await _context.PendUserRegisters.AnyAsync(p => p.UserName == userName || p.Email == email);
         }
+
+        public async Task UpdatePendUserRegisterAsync(PendUserRegister pendUserRegister)
+        {
+            _context.PendUserRegisters.Update(pendUserRegister);
+            await _context.SaveChangesAsync();
+        }
     }
 }
