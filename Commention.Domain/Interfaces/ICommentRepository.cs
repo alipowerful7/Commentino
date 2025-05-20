@@ -6,10 +6,11 @@ namespace Commention.Domain.Interfaces
     {
         Task<IEnumerable<Comment>> GetAllCommentsAsync();
         Task<IEnumerable<Comment>> GetCommentsByUserIdAsync(long userId);
-        Task<Comment> GetCommentByIdAsync(long id);
-        Task ConfirmComment(long id);
+        Task<Comment> GetCommentByIdAsync(long idcommentId);
+        Task<bool> IsCommentConfirm(long commentId);
+        Task ConfirmComment(long commentId);
         Task CreateCommentAsync(Comment comment);
         Task UpdateCommentAsync(Comment comment);
-        Task DeleteCommentAsync(long id);
+        Task DeleteCommentAsync(long commentId);
     }
 }
