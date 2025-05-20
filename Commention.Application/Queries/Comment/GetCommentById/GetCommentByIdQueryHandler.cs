@@ -17,6 +17,7 @@ namespace Commention.Application.Queries.Comment.GetCommentById
             var comment = await _commentRepository.GetCommentByIdAsync(request.Id);
             return new GetCommentByIdDto
             {
+                Id = comment.Id,
                 Body = comment.Body,
                 IsConfirm = comment.IsConfirm,
                 UserName = comment.User?.UserName
