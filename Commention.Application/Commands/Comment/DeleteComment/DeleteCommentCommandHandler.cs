@@ -14,8 +14,12 @@ namespace Commention.Application.Commands.Comment.DeleteComment
 
         public async Task<long> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
         {
-            await _commentRepository.DeleteCommentAsync(request.Id);
-            return request.Id;
+            if (await _commentRepository.IsUserCanDeleteComment(request.Id, request.UserId))
+            {
+                await _commentRepository.DeleteCommentAsync(request.Id);
+                return request.Id;
+            }
+            throw new Exception("شما اجازه حذف این کامنت را ندارید.");
         }
     }
 }

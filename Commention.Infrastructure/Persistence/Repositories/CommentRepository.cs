@@ -1,5 +1,6 @@
 ﻿using Commention.Domain.Interfaces;
 using Commention.Domain.Models.Entities;
+using Commention.Domain.Models.Enums;
 using Commention.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +9,12 @@ namespace Commention.Infrastructure.Persistence.Repositories
     public class CommentRepository : ICommentRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly IUserRepository _userRepository;
 
-        public CommentRepository(ApplicationDbContext context)
+        public CommentRepository(ApplicationDbContext context, IUserRepository userRepository)
         {
             _context = context;
+            _userRepository = userRepository;
         }
 
         public async Task ConfirmComment(long commentId)
@@ -58,6 +61,17 @@ namespace Commention.Infrastructure.Persistence.Repositories
         {
             var model = await GetCommentByIdAsync(commentId);
             return model.IsConfirm;
+        }
+
+        public async Task<bool> IsUserCanDeleteComment(long commentId, long userId)
+        {
+            var user = await _userRepository.GetUserByIdAsync(userId);
+            var comment = await GetCommentByIdAsync(commentId);
+            if (comment.UserId == user.Id || user.UserRole == UserRole.Admin)
+            {
+                return true;
+            }
+            return false;
         }
 
         public async Task UpdateCommentAsync(Comment comment)

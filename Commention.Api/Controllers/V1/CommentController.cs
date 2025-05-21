@@ -66,5 +66,11 @@ namespace Commention.Api.Controllers.V1
             var userId = long.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value);
             return Ok(await _mediator.Send(new GetCommentsByUserIdQuery { UserId = userId }));
         }
+        [HttpGet("get-comments-by-user-id/{userId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetCommentsByUserId(long userId)
+        {
+            return Ok(await _mediator.Send(new GetCommentsByUserIdQuery { UserId = userId }));
+        }
     }
 }
