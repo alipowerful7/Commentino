@@ -47,5 +47,38 @@ namespace Commention.Infrastructure.Services
                 await client.DisconnectAsync(true);
             }
         }
+
+        public async Task SendEmailAsync(string email, string subject, string body)
+        {
+            var emailSettings = _configuration.GetSection("EmailSettings");
+            string smtpServer = emailSettings["SmtpServer"]!;
+            int port = int.Parse(emailSettings["Port"]!);
+            string senderEmail = emailSettings["SenderEmail"]!;
+            string senderPassword = emailSettings["SenderPassword"]!;
+            bool enableSSL = bool.Parse(emailSettings["EnableSSL"]!);
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Commentino", senderEmail));
+
+            string recipientEmail = email;
+            message.To.Add(new MailboxAddress("", recipientEmail));
+
+            message.Subject = $"{subject}";
+            message.Body = new TextPart("html")
+            {
+                Text = $"<h1>{body}</h1>"
+            };
+
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync(smtpServer, port, SecureSocketOptions.StartTls);
+
+                await client.AuthenticateAsync(senderEmail, senderPassword);
+
+                await client.SendAsync(message);
+
+                await client.DisconnectAsync(true);
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using Commention.Application.Commands.User.DeleteUser;
 using Commention.Application.Commands.User.UpdateUser;
 using Commention.Application.Queries.User.GetAllUsers;
 using Commention.Application.Queries.User.GetUserById;
+using Commention.Application.Queries.User.SendEmailToAll;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,13 @@ namespace Commention.Api.Controllers.V1
         public async Task<IActionResult> GetUserById(long id)
         {
             return Ok(await _mediator.Send(new GetUserByIdQuery { Id = id }));
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SendEmailToAll(SendEmailToAllQuery query)
+        {
+            await _mediator.Send(query);
+            return Ok();
         }
     }
 }
