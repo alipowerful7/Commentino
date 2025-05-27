@@ -32,8 +32,6 @@ namespace Commention.Api.Controllers.V1
         [Authorize]
         public async Task<IActionResult> CreateComment(CreateCommentCommand command)
         {
-            var userId = long.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value);
-            command.UserId = userId;
             return Ok(await _mediator.Send(command));
         }
         [HttpDelete]
@@ -64,7 +62,7 @@ namespace Commention.Api.Controllers.V1
         public async Task<IActionResult> GetCommentsByUserId()
         {
             var userId = long.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value);
-            return Ok(await _mediator.Send(new GetCommentsByUserIdQuery { UserId = userId }));
+            return Ok(await _mediator.Send(new GetCommentsByUserIdQuery()));
         }
         [HttpGet("get-comments-by-user-id/{userId}")]
         [Authorize(Roles = "Admin")]
